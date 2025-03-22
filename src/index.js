@@ -28,11 +28,29 @@ function submitVote(e) {
     // clear the form
     e.target.reset()
 }
-function resetVotes () {
-    
+function resetVotes() {
+
     const characterVoteCountElem = document.getElementById('vote-count')
     characterVoteCountElem.innerText = 0
-    
+
+}
+function addNewCharacter(e) {
+    e.preventDefault()
+    const name = e.target["name"].value
+    const imageUrl = e.target["image-url"].value
+
+    // append character
+
+    const newCharacter = {
+        name: name,
+        image: imageUrl
+    }
+
+    const character = document.createElement('span')
+    character.id = newCharacter.id
+    character.addEventListener("click", displaycharacterInfo)
+    character.innerText = newCharacter.name
+    charaterBar.appendChild(character)
 }
 
 
@@ -40,6 +58,10 @@ function resetVotes () {
 document.addEventListener("DOMContentLoaded", function () {
     const inputForm = document.getElementById("votes-form");
     inputForm.addEventListener("submit", submitVote)
+
+    const characterForm = document.getElementById("character-form")
+    characterForm.addEventListener("submit", addNewCharacter)
+
     const charaterBar = document.getElementById('character-bar')
 
     fetch(`http://localhost:3000/characters`)
@@ -52,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 character.addEventListener("click", displaycharacterInfo)
                 character.innerText = element.name
                 charaterBar.appendChild(character)
+
             });
         });
 });
