@@ -11,7 +11,7 @@ function displaycharacterInfo(e) {
             characterImageElem.src = characterJson.image
             characterVoteCountElem.innerText = characterJson.votes
         });
-        
+
 }
 function submitVote(e) {
     e.preventDefault()
@@ -20,17 +20,19 @@ function submitVote(e) {
 
     // get votes from e 
     const votes = parseInt(e.target['votes'].value, 10)
-    const currentVotes = parseInt( characterVoteCountElem.innerText, 10)
-
-    console.log(currentVotes, votes)
+    const currentVotes = parseInt(characterVoteCountElem.innerText, 10)
 
     // then add to current votes 
     // then update current
     characterVoteCountElem.innerText = currentVotes + votes
-
-
-
-            
+    // clear the form
+    e.target.reset()
+}
+function resetVotes () {
+    
+    const characterVoteCountElem = document.getElementById('vote-count')
+    characterVoteCountElem.innerText = 0
+    
 }
 
 
