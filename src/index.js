@@ -11,12 +11,33 @@ function displaycharacterInfo(e) {
             characterImageElem.src = characterJson.image
             characterVoteCountElem.innerText = characterJson.votes
         });
+        
+}
+function submitVote(e) {
+    e.preventDefault()
+    const characterVoteCountElem = document.getElementById('vote-count')
 
+
+    // get votes from e 
+    const votes = parseInt(e.target['votes'].value, 10)
+    const currentVotes = parseInt( characterVoteCountElem.innerText, 10)
+
+    console.log(currentVotes, votes)
+
+    // then add to current votes 
+    // then update current
+    characterVoteCountElem.innerText = currentVotes + votes
+
+
+
+            
 }
 
 
 
 document.addEventListener("DOMContentLoaded", function () {
+    const inputForm = document.getElementById("votes-form");
+    inputForm.addEventListener("submit", submitVote)
     const charaterBar = document.getElementById('character-bar')
 
     fetch(`http://localhost:3000/characters`)
