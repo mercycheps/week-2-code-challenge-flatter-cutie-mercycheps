@@ -1,3 +1,5 @@
+let characters = []
+
 function displaycharacterInfo(e) {
     e.preventDefault()
     fetch(`http://localhost:3000/characters/${e.target.id}`)
@@ -42,15 +44,24 @@ function addNewCharacter(e) {
     // append character
 
     const newCharacter = {
+        id: characters.length + 1,
         name: name,
-        image: imageUrl
+        image: imageUrl,
+        votes: 0
+        
     }
 
     const character = document.createElement('span')
     character.id = newCharacter.id
     character.addEventListener("click", displaycharacterInfo)
     character.innerText = newCharacter.name
+
+    const charaterBar = document.getElementById('character-bar')
     charaterBar.appendChild(character)
+
+    // show new character in info using event trigger
+    
+
 }
 
 
@@ -68,6 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((response) => response.json())
         .then((data) => {
             console.log(data)
+            // save characters in global variable
+            characters = data
             data.forEach(element => {
                 const character = document.createElement('span')
                 character.id = element.id
